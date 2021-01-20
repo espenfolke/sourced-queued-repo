@@ -81,10 +81,15 @@ module.exports = function (repo) {
   //   self._queues[id].push({ id: ids, cb: cb });
   // };
 
-  copy.commit = function (entity, cb) {
+  copy.commit = function (entity, options, cb) {
+    if (typeof options === 'function') {
+      cb = options;
+      options = {};
+    }
+    
     var self = this;
     this._ensureQueue(entity.id);
-    this._commit.call(this, entity, function (err) {
+    this._commit.call(this, entity, options, function (err) {
       if (err) return cb(err);
       self._locks[entity.id].unlock();
       cb();
