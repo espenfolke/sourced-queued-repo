@@ -89,11 +89,20 @@ module.exports = function (repo) {
     
     var self = this;
     this._ensureQueue(entity.id);
-    this._commit.call(this, entity, options, function (err) {
-      if (err) return cb(err);
-      self._locks[entity.id].unlock();
-      cb();
-    });
+    if (options) {
+      this._commit.call(this, entity, options, function (err) {
+        if (err) return cb(err);
+        self._locks[entity.id].unlock();
+        cb();
+      });
+    } else {
+      this._commit.call(this, entity, function (err) {
+        if (err) return cb(err);
+        self._locks[entity.id].unlock();
+        cb();
+      });
+    }
+
   };
 
   // copy.commitAll = function (entities, cb) {
