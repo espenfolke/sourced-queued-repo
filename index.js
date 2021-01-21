@@ -84,9 +84,9 @@ module.exports = function (repo) {
   copy.commit = function (entity, options, cb) {
     if (typeof options === 'function') {
       cb = options;
-      options = {};
+      options = null;
     }
-    console.log(options)
+
     var self = this;
     this._ensureQueue(entity.id);
     if (options) {
