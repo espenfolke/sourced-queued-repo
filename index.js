@@ -86,7 +86,7 @@ module.exports = function (repo) {
       cb = options;
       options = {};
     }
-    
+    console.log(options)
     var self = this;
     this._ensureQueue(entity.id);
     if (options) {
